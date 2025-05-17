@@ -131,6 +131,12 @@ export function UserProfile() {
                   <Label className="text-muted-foreground">Benefek Code</Label>
                   <p className="font-medium">{userDetails.benefekCode}</p>
                 </div>
+                {userDetails.budget && (
+                  <div className="col-span-2">
+                    <Label className="text-muted-foreground">Budget Range</Label>
+                    <p className="font-medium">₦{userDetails.budget.min.toLocaleString()} - ₦{userDetails.budget.max.toLocaleString()}</p>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
