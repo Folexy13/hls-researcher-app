@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/components/ui/use-toast";
 import { BENEFEK_CODE, dummyUser } from "@/lib/dummyData";
 import { User } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function UserProfile() {
   const [benefekCode, setBenefekCode] = useState<string>("");
@@ -17,7 +18,7 @@ export function UserProfile() {
   const handleVerifyCode = () => {
     setIsVerifying(true);
     
-    // Simulate API call
+    // Simulate API call with delay to show loader
     setTimeout(() => {
       if (benefekCode === BENEFEK_CODE) {
         setUserDetails(dummyUser);
@@ -38,7 +39,7 @@ export function UserProfile() {
   };
 
   return (
-    <div className="animate-fade-in space-y-6 p-4">
+    <div className="animate-fade-in space-y-6 p-2 sm:p-4">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-researcher-primary">User Profile</h2>
         <p className="text-muted-foreground">Enter your benefek code to view your details</p>
@@ -62,6 +63,7 @@ export function UserProfile() {
                     value={benefekCode}
                     onChange={(e) => setBenefekCode(e.target.value)}
                     placeholder="Enter code (hint: RSRC123)"
+                    disabled={isVerifying}
                   />
                   <Button 
                     onClick={handleVerifyCode} 
@@ -76,7 +78,33 @@ export function UserProfile() {
           </CardContent>
         </Card>
 
-        {userDetails && (
+        {isVerifying ? (
+          <Card className="mt-6 animate-fade-in">
+            <CardHeader>
+              <Skeleton className="h-12 w-12 rounded-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[250px]" />
+                <Skeleton className="h-4 w-[200px]" />
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Skeleton className="h-4 w-[100px] mb-2" />
+                  <Skeleton className="h-4 w-[150px]" />
+                </div>
+                <div>
+                  <Skeleton className="h-4 w-[100px] mb-2" />
+                  <Skeleton className="h-4 w-[150px]" />
+                </div>
+                <div className="col-span-2">
+                  <Skeleton className="h-4 w-[100px] mb-2" />
+                  <Skeleton className="h-4 w-[200px]" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : userDetails && (
           <Card className="mt-6 animate-fade-in">
             <CardHeader>
               <div className="flex items-center space-x-2">

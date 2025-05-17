@@ -26,7 +26,7 @@ export function SupplementsSelector({
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   return (
-    <div className="animate-fade-in space-y-6 p-4">
+    <div className="animate-fade-in space-y-6 p-2 sm:p-4">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-researcher-primary">Select Supplements</h2>
         <p className="text-muted-foreground">Choose supplements for your packs</p>

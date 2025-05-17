@@ -34,7 +34,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-researcher-background">
       {/* Header */}
-      <header className="bg-white shadow-sm py-4 px-4">
+      <header className="bg-white shadow-sm py-4 px-2 sm:px-4">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center">
             <h1 className="text-xl font-bold text-researcher-primary">Researcher App</h1>
@@ -62,7 +62,7 @@ const Index = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto py-6 px-4">
+      <main className="container mx-auto py-4 px-2 sm:px-4">
         {isAuthenticated ? (
           <TabsContainer />
         ) : (
@@ -82,7 +82,7 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t py-6 px-4 mt-auto">
+      <footer className="bg-white border-t py-4 px-2 sm:px-4 mt-auto">
         <div className="container mx-auto text-center text-muted-foreground">
           <p>&copy; 2025 Researcher App. All rights reserved.</p>
         </div>
@@ -96,6 +96,6 @@ const Index = () => {
       />
     </div>
   );
-};
+}
 
 export default Index;

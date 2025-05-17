@@ -10,10 +10,10 @@ import { useToast } from "@/components/ui/use-toast";
 export function TabsContainer() {
   const [activeTab, setActiveTab] = useState("profile");
   const [selectedSupplements, setSelectedSupplements] = useState<Record<string, Supplement[]>>({
-    Researcher: [],
-    Prof: [],
-    Dr: [],
-    HLS: []
+    researcher: [],
+    prof: [],
+    dr: [],
+    hls: []
   });
   const { toast } = useToast();
 
@@ -22,14 +22,20 @@ export function TabsContainer() {
       ...prev,
       [packId]: [...(prev[packId] || []), supplement]
     }));
+    
+    toast({
+      title: "Supplement added",
+      description: `Added ${supplement.name} to ${packId} pack`,
+    });
   };
 
   const handleAddFromGallery = (category: string, selectedIds: string[]) => {
     const supplementsToAdd = supplements.filter(s => selectedIds.includes(s.id));
+    const categoryKey = category.toLowerCase();
     
     setSelectedSupplements(prev => ({
       ...prev,
-      [category]: [...(prev[category] || []), ...supplementsToAdd]
+      [categoryKey]: [...(prev[categoryKey] || []), ...supplementsToAdd]
     }));
   };
 
@@ -45,11 +51,11 @@ export function TabsContainer() {
         <TabsTrigger value="gallery">Gallery</TabsTrigger>
       </TabsList>
       
-      <TabsContent value="profile">
+      <TabsContent value="profile" className="animate-fade-in">
         <UserProfile />
       </TabsContent>
       
-      <TabsContent value="supplements">
+      <TabsContent value="supplements" className="animate-fade-in">
         <SupplementsSelector 
           onNavigateToGallery={navigateToGallery} 
           selectedSupplements={selectedSupplements}
@@ -57,7 +63,7 @@ export function TabsContainer() {
         />
       </TabsContent>
       
-      <TabsContent value="gallery">
+      <TabsContent value="gallery" className="animate-fade-in">
         <SupplementGallery onAddToCategory={handleAddFromGallery} />
       </TabsContent>
     </Tabs>

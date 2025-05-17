@@ -55,7 +55,7 @@ export function SupplementGallery({ onAddToCategory }: SupplementGalleryProps) {
   };
 
   return (
-    <div className="animate-fade-in space-y-6 p-4">
+    <div className="animate-fade-in space-y-6 p-2 sm:p-4">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-researcher-primary">Supplement Gallery</h2>
         <p className="text-muted-foreground">Select supplements to add to your packs</p>
@@ -68,10 +68,10 @@ export function SupplementGallery({ onAddToCategory }: SupplementGalleryProps) {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">Select a pack...</option>
-          <option value="Researcher">Researcher Pack</option>
-          <option value="Prof">Prof Pack</option>
-          <option value="Dr">Dr's Pack</option>
-          <option value="HLS">HLS Pack</option>
+          <option value="researcher">Researcher Pack</option>
+          <option value="prof">Prof Pack</option>
+          <option value="dr">Dr's Pack</option>
+          <option value="hls">HLS Pack</option>
         </select>
         
         <Button 
