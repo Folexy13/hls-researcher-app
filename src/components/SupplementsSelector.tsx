@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Plus, Gallery } from "lucide-react";
+import { Plus, GalleryHorizontal } from "lucide-react";
 import { AddSupplementModal } from "./AddSupplementModal";
 import { packCategories, supplements } from "@/lib/dummyData";
 import { Badge } from "@/components/ui/badge";
@@ -53,7 +53,7 @@ export function SupplementsSelector({
                     onClick={onNavigateToGallery}
                     className="border-researcher-primary text-researcher-primary hover:bg-researcher-muted flex items-center"
                   >
-                    <Gallery className="mr-2 h-4 w-4" /> Add from Gallery
+                    <GalleryHorizontal className="mr-2 h-4 w-4" /> Add from Gallery
                   </Button>
                 </div>
                 
