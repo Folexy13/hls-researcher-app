@@ -9,7 +9,11 @@ import { BENEFEK_CODE, dummyUser } from "@/lib/dummyData";
 import { User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function UserProfile() {
+interface UserProfileProps {
+  onUserVerified?: (verified: boolean, budget: { min: number, max: number } | null) => void;
+}
+
+export function UserProfile({ onUserVerified }: UserProfileProps) {
   const [benefekCode, setBenefekCode] = useState<string>("");
   const [userDetails, setUserDetails] = useState<any>(null);
   const [isVerifying, setIsVerifying] = useState<boolean>(false);
@@ -26,6 +30,11 @@ export function UserProfile() {
           title: "Code verified",
           description: "User details retrieved successfully.",
         });
+        
+        // Notify parent component that user is verified and pass budget
+        if (onUserVerified && dummyUser.budget) {
+          onUserVerified(true, dummyUser.budget);
+        }
       } else {
         setUserDetails(null);
         toast({
@@ -33,6 +42,11 @@ export function UserProfile() {
           description: "The benefek code you entered is invalid.",
           variant: "destructive",
         });
+        
+        // Notify parent component that user is not verified
+        if (onUserVerified) {
+          onUserVerified(false, null);
+        }
       }
       setIsVerifying(false);
     }, 1000);

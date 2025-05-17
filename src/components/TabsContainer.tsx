@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UserProfile } from "./UserProfile";
 import { SupplementsSelector } from "./SupplementsSelector";
@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 export function TabsContainer() {
   const [activeTab, setActiveTab] = useState("profile");
+  const [userVerified, setUserVerified] = useState(false);
   const [selectedSupplements, setSelectedSupplements] = useState<Record<string, Supplement[]>>({
     researcher: [],
     prof: [],
@@ -21,10 +22,11 @@ export function TabsContainer() {
     dr: false,
     hls: false
   });
+  const [userBudget, setUserBudget] = useState<{ min: number, max: number } | null>(null);
   const { toast } = useToast();
 
   // Calculate pack budgets based on user's budget range
-  const packBudgets = calculatePackBudget(dummyUser.budget || { min: 0, max: 0 });
+  const packBudgets = userBudget ? calculatePackBudget(userBudget) : null;
 
   const handleAddSupplement = (packId: string, supplement: Supplement) => {
     const updatedSupplements = {
@@ -124,11 +126,40 @@ export function TabsContainer() {
   };
 
   const navigateToGallery = () => {
+    if (!userVerified) {
+      setActiveTab("profile");
+      toast({
+        title: "Verification Required",
+        description: "Please enter your benefek code before accessing supplements.",
+        variant: "destructive",
+      });
+      return;
+    }
     setActiveTab("gallery");
   };
 
+  const handleTabChange = (value: string) => {
+    if ((value === "supplements" || value === "gallery") && !userVerified) {
+      setActiveTab("profile");
+      toast({
+        title: "Verification Required",
+        description: "Please enter your benefek code before accessing supplements.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setActiveTab(value);
+  };
+
+  const handleUserVerified = (verified: boolean, budget: { min: number, max: number } | null) => {
+    setUserVerified(verified);
+    if (budget) {
+      setUserBudget(budget);
+    }
+  };
+
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="profile">User Profile</TabsTrigger>
         <TabsTrigger value="supplements">Select Supplements</TabsTrigger>
@@ -136,7 +167,7 @@ export function TabsContainer() {
       </TabsList>
       
       <TabsContent value="profile" className="animate-fade-in">
-        <UserProfile />
+        <UserProfile onUserVerified={handleUserVerified} />
       </TabsContent>
       
       <TabsContent value="supplements" className="animate-fade-in">
