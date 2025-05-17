@@ -55,7 +55,7 @@ export function SupplementGallery({ onAddToCategory }: SupplementGalleryProps) {
   };
 
   return (
-    <div className="animate-fade-in space-y-6 p-2 sm:p-4">
+    <div className="animate-fade-in space-y-6 p-1 sm:p-3">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-researcher-primary">Supplement Gallery</h2>
         <p className="text-muted-foreground">Select supplements to add to your packs</p>
@@ -92,7 +92,7 @@ export function SupplementGallery({ onAddToCategory }: SupplementGalleryProps) {
             } hover:shadow-md transition-shadow cursor-pointer`}
             onClick={() => handleToggleSelect(supplement.id)}
           >
-            <CardContent className="p-3 text-center">
+            <CardContent className="p-2 text-center">
               <div className="relative mb-1">
                 <img 
                   src={supplement.imageUrl} 
@@ -105,10 +105,11 @@ export function SupplementGallery({ onAddToCategory }: SupplementGalleryProps) {
                   onCheckedChange={() => handleToggleSelect(supplement.id)}
                 />
               </div>
-              <h3 className="font-medium mt-2 text-sm">{supplement.name}</h3>
+              <h3 className="font-medium mt-2 text-xs">{supplement.name}</h3>
               <p className="text-xs text-muted-foreground">{supplement.category}</p>
+              <p className="text-xs font-medium mt-1">₦{supplement.price.toLocaleString()}</p>
             </CardContent>
-            <CardFooter className="p-2">
+            <CardFooter className="p-1">
               <p className="text-xs text-muted-foreground truncate w-full">
                 {supplement.description.substring(0, 30)}
                 {supplement.description.length > 30 ? '...' : ''}

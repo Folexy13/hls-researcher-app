@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Plus, GalleryHorizontal, AlertTriangle, Package } from "lucide-react";
+import { Plus, GalleryHorizontal, AlertTriangle, Package, Trash2 } from "lucide-react";
 import { AddSupplementModal } from "./AddSupplementModal";
 import { packCategories, supplements, Supplement, calculateTotalPrice } from "@/lib/dummyData";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,7 @@ interface SupplementsSelectorProps {
   onNavigateToGallery: () => void;
   selectedSupplements: Record<string, Supplement[]>;
   onAddSupplement: (packId: string, supplement: Supplement) => void;
+  onRemoveSupplement: (packId: string, supplementId: string) => void;
   budgetExceeded: Record<string, boolean>;
   packBudgets: Record<string, { min: number, max: number }> | null;
   onDispatchPack: (packId: string) => void;
@@ -26,6 +27,7 @@ export function SupplementsSelector({
   onNavigateToGallery, 
   selectedSupplements,
   onAddSupplement,
+  onRemoveSupplement,
   budgetExceeded,
   packBudgets,
   onDispatchPack
@@ -33,7 +35,7 @@ export function SupplementsSelector({
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   return (
-    <div className="animate-fade-in space-y-6 p-2 sm:p-4">
+    <div className="animate-fade-in space-y-6 p-1 sm:p-3">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-researcher-primary">Select Supplements</h2>
         <p className="text-muted-foreground">Choose supplements for your packs</p>
@@ -113,11 +115,24 @@ export function SupplementsSelector({
                                 <p className="text-xs text-muted-foreground">{supplement.description.substring(0, 50)}</p>
                               </div>
                             </div>
-                            <div className="flex flex-col items-end">
-                              <Badge variant="outline" className="bg-researcher-muted mb-1">
-                                {category.name.replace(" Packs", "")}
-                              </Badge>
-                              <span className="text-sm font-medium">₦{supplement.price.toLocaleString()}</span>
+                            <div className="flex items-center">
+                              <div className="flex flex-col items-end mr-3">
+                                <Badge variant="outline" className="bg-researcher-muted mb-1">
+                                  {category.name.replace(" Packs", "")}
+                                </Badge>
+                                <span className="text-sm font-medium">₦{supplement.price.toLocaleString()}</span>
+                              </div>
+                              <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onRemoveSupplement(category.id, supplement.id);
+                                }}
+                                className="text-gray-500 hover:text-red-500"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
                             </div>
                           </div>
                         ))}

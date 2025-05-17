@@ -58,6 +58,33 @@ export function TabsContainer() {
     });
   };
 
+  const handleRemoveSupplement = (packId: string, supplementId: string) => {
+    const updatedSupplements = {
+      ...selectedSupplements,
+      [packId]: selectedSupplements[packId].filter(sup => sup.id !== supplementId)
+    };
+    
+    setSelectedSupplements(updatedSupplements);
+    
+    // Check if budget is no longer exceeded
+    if (packBudgets) {
+      const totalPackPrice = calculateTotalPrice(updatedSupplements[packId]);
+      const isBudgetExceeded = totalPackPrice > packBudgets[packId].max;
+      
+      if (!isBudgetExceeded && budgetExceeded[packId]) {
+        setBudgetExceeded(prev => ({
+          ...prev,
+          [packId]: false
+        }));
+      }
+    }
+    
+    toast({
+      title: "Supplement removed",
+      description: `Removed supplement from ${packId} pack`,
+    });
+  };
+
   const handleAddFromGallery = (category: string, selectedIds: string[]) => {
     const supplementsToAdd = supplements.filter(s => selectedIds.includes(s.id));
     const categoryKey = category.toLowerCase();
@@ -117,6 +144,7 @@ export function TabsContainer() {
           onNavigateToGallery={navigateToGallery} 
           selectedSupplements={selectedSupplements}
           onAddSupplement={handleAddSupplement}
+          onRemoveSupplement={handleRemoveSupplement}
           budgetExceeded={budgetExceeded}
           packBudgets={packBudgets}
           onDispatchPack={handleDispatchPack}
