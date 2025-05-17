@@ -106,7 +106,7 @@ export function SupplementGallery({ onAddToCategory }: SupplementGalleryProps) {
                 />
               </div>
               <h3 className="font-medium mt-2 text-xs">{supplement.name}</h3>
-              <p className="text-xs text-muted-foreground">{supplement.category}</p>
+              {/*<p className="text-xs text-muted-foreground">{supplement.category}</p>*/}
               <p className="text-xs font-medium mt-1">₦{supplement.price.toLocaleString()}</p>
             </CardContent>
             <CardFooter className="p-1">

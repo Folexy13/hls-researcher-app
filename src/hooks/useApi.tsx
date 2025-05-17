@@ -43,10 +43,10 @@ export function useApi<T>() {
       if (config.url?.includes('user')) {
         mockResponse = {
           id: 'user-123',
-          name: 'Jane Researcher',
-          email: 'jane@research.org',
-          sex: 'Female',
-          family: 'Smith'
+          name: 'Aluko Folajimi',
+          email: 'folajimi@research.org',
+          sex: 'Male',
+          family: 'Aluko'
         };
       } else if (config.url?.includes('supplements')) {
         mockResponse = [

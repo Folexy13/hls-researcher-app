@@ -25,14 +25,14 @@ export const BENEFEK_CODE = "RSRC123";
 
 export const dummyUser: User = {
   id: "user-123",
-  name: "Jane Researcher",
-  email: "jane@research.org",
-  sex: "Female",
-  family: "Smith",
+  name: "Folajimi Aluko",
+  email: "folajimi@research.org",
+  sex: "Male",
+  family: "Aluko",
   benefekCode: BENEFEK_CODE,
   budget: {
-    min: 10000,
-    max: 25000
+    min: 5000,
+    max: 15000
   }
 };
 
