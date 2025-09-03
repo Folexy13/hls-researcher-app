@@ -4,7 +4,7 @@ import {useToast} from "@/components/ui/use-toast";
 
 // Create an axios instance
 export const api = axios.create({
-    baseURL: 'https://hlsnigeria.com.ng/',  // Replace with your API base URL if needed
+    baseURL: 'https://vsured-backend.onrender.com/',  // Replace with your API base URL if needed
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
