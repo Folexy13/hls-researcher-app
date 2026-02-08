@@ -4,7 +4,7 @@ import {useToast} from "@/components/ui/use-toast";
 
 // Create an axios instance
 export const api = axios.create({
-    baseURL: ' https://a31f-102-89-82-37.ngrok-free.app/',  // Replace with your API base URL if needed
+    baseURL: 'https://cc3b-102-89-82-37.ngrok-free.app/',  // Replace with your API base URL if needed
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
